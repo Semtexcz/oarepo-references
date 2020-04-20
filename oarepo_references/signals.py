@@ -73,7 +73,6 @@ def create_references_record(sender, record, *args, **kwargs):
                                                           reference=ref).all()
                 if not rr_list:
                     db.session.add(rr)
-                db.session.add(rr)
     except KeyError:
         raise MissingModelError()
 
