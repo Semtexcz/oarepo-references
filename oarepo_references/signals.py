@@ -69,7 +69,10 @@ def create_references_record(sender, record, *args, **kwargs):
                 rr = RecordReference(record_uuid=record.model.id,
                                      reference=ref,
                                      reference_uuid=ref_uuid)
-                # TODO: check for existence of this pair first
+                rr_list = RecordReference.query.filter_by(record_uuid=record.model.id,
+                                                          reference=ref).all()
+                if not rr_list:
+                    db.session.add(rr)
                 db.session.add(rr)
     except KeyError:
         raise MissingModelError()
